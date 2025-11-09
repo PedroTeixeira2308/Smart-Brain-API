@@ -31,13 +31,6 @@ const database = {
       joined: new Date()
     }
   ],
-  // login: [
-  //   {
-  //     id: '987',
-  //     hash: '',
-  //     email: 'john@gmail.com'
-  //   }
-  // ]
 }
 
 app.get('/', (req, res) => {
@@ -45,12 +38,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-  // bcrypt.compare("apples", '$2a$10$TnS.y8JB5TjgPeK.W8AvMueWjVZJwc9LsUBC/36OXqfc8wcFnLKIC', function(err, res) {
-  //     console.log('first guess', res)
-  // });
-  // bcrypt.compare("veggies", '$2a$10$TnS.y8JB5TjgPeK.W8AvMueWjVZJwc9LsUBC/36OXqfc8wcFnLKIC', function(err, res) {
-  //     console.log('second guess', res)
-  // });
   if(req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
     // res.json('Success');
     res.json(database.users[0]);
@@ -61,9 +48,6 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
   const {email, name, password} = req.body;
-//   bcrypt.hash(password, null, null, function(err, hash) {
-//     console.log(hash);
-// });
   database.users.push({
     id: '125',
     name: name,
