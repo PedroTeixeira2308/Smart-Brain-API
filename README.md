@@ -23,7 +23,7 @@ This server handles API routes, user entries, and face detection logic through i
 
 | Version | Description |
 |----------|--------------|
-| **v1.0** | Initial backend setup with Express and Clarifai API |
+| **v1.0.0** | Initial backend setup with Express and Clarifai API |
 | **Next** | Connect to a database (PostgreSQL planned) |
 
 ---
