@@ -2,7 +2,8 @@
 
 ![Node.js](https://img.shields.io/badge/Node.js-24-green?logo=node.js)
 ![Express.js](https://img.shields.io/badge/Express.js-Framework-black?logo=express)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql)
+![Version](https://img.shields.io/badge/version-1.1.0-green)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 
@@ -14,17 +15,19 @@ This server handles API routes, user entries, and face detection logic through i
 
 - **Node.js** (runtime environment)
 - **Express.js** (web framework)
+- **PostgreSQL** + **Knex** — Relational database and query builder 
+- **bcrypt** — Password hashing
 - **CORS** (for front-end connection)
-- **Clarifai API** (face detection model)
 - **Dotenv** (environment configuration)
-- **JavaScript (ES6+)**
+- **Clarifai API** — Face detection model 
+
 
 ## Version History
 
 | Version | Description |
 |----------|--------------|
+| **v1.1.0** | Connected to PostgreSQL using Knex, implemented real `/signin`, `/register`, `/image` endpoints with bcrypt password hashing and `.env` security configuration |
 | **v1.0.0** | Initial backend setup with Express and Clarifai API |
-| **Next** | Connect to a database (PostgreSQL planned) |
 
 ---
 
@@ -35,7 +38,8 @@ This server handles API routes, user entries, and face detection logic through i
 - Structuring **RESTful** endpoints with clean route organization
 - Configuring **CORS** for communication between backend and frontend
 - Managing environment variables securely with **.env**
-- Preparing the backend for database and authentication integration
+- Connecting and querying a **PostgreSQL** database using **Knex**  
+- Hashing passwords safely using **bcrypt**
 
 
 ## Setup
@@ -51,8 +55,41 @@ cd Smart-brain-api
 npm install
 
 # Create a .env file in the root of the project
-# Add your Clarifai Personal Access Token and desired port
+# Add your Clarifai Personal Access Token and fill with your database credentials 
+# Example:
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=smart_brain
 CLARIFAI_PAT=your_clarifai_personal_access_token
+
+# Setup PostgreSQL Database via CLI
+psql -U postgres
+
+# Create the database
+CREATE DATABASE smart_brain;
+
+# Verify your connection details
+\conninfo
+
+
+# Create Database Schema
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  email TEXT UNIQUE NOT NULL,
+  entries BIGINT DEFAULT 0,
+  joined TIMESTAMP NOT NULL
+);
+
+CREATE TABLE login (
+  id SERIAL PRIMARY KEY,
+  hash VARCHAR(100) NOT NULL,
+  email TEXT UNIQUE NOT NULL
+);
+
 
 # Start the server
 # Option 1: Run manually
@@ -96,6 +133,12 @@ Smart-brain-api/
 
 ## Features
 
+- Secure user registration and login
+
+- Password encryption with bcrypt
+
+- PostgreSQL integration via Knex.js
+
 - RESTful API with clean structure
 
 - Face detection endpoint integrated with Clarifai
@@ -104,7 +147,7 @@ Smart-brain-api/
 
 - JSON request handling via Express
 
-- Environment variable support with **.env**
+- Environment configuration with **.env**
 
 - CORS configuration for secure front-end access
 
@@ -114,10 +157,10 @@ Smart-brain-api/
 | Method | Endpoint | Description |
 |---------|-----------|--------------|
 | **GET** | `/` | Root test endpoint |
-| **POST** | `/signin` | Handles user sign-in (mock) |
-| **POST** | `/register` | Handles user registration (mock) |
-| **PUT** | `/image` | Updates user entry count |
-| **POST** | `/api/clarifai/face-detect` | Calls Clarifai API for face detection |
+| **POST** | `/signin` | Authenticates user using bcrypt |
+| **POST** | `/register` | Registers a new user and hashes password |
+| **PUT** | `/image` | Updates the user's image entry count |
+| **POST** | `/api/clarifai/face-detect` | Sends image URL to Clarifai API for face detection |
 
 
 ## Author
