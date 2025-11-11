@@ -34,6 +34,7 @@ B -->|External| D[Clarifai API]
 
 | Version | Description |
 |----------|--------------|
+| **v1.1.1** | Code Review Improvements & Controller Refactor|
 | **v1.1.0** | Connected to PostgreSQL using Knex, implemented real `/signin`, `/register`, `/image` endpoints with bcrypt password hashing and `.env` security configuration |
 | **v1.0.0** | Initial backend setup with Express and Clarifai API |
 
