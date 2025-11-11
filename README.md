@@ -22,6 +22,14 @@ This server handles API routes, user entries, and face detection logic through i
 - **Clarifai API** — Face detection model 
 
 
+## Architecture Overview
+```mermaid
+graph LR
+A[React Frontend] -->|HTTP/JSON| B[Express API]
+B -->|SQL| C[(PostgreSQL)]
+B -->|External| D[Clarifai API]
+```
+
 ## Version History
 
 | Version | Description |
@@ -123,6 +131,12 @@ npm start
 ## Project Structure
 ```markdown
 Smart-brain-api/
+┣ controllers/
+┃ ┣ clarifai.js
+┃ ┣ image.js
+┃ ┣ profile.js
+┃ ┣ register.js
+┃ ┗ signin.js
 ┣ .env.example
 ┣ .gitignore
 ┣ package.json
