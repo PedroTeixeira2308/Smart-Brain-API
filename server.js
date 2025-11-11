@@ -30,7 +30,7 @@ app.use(cors());
 
 
 app.get("/", (req, res) => {
-  // res.json({ status: 'success' });
+  res.status(200).send('success')
 });
 
 app.post("/signin", (req, res) => {signIn.handleSignIn(req, res, db, bcrypt)});
