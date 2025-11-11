@@ -66,6 +66,7 @@ npm install
 # Create a .env file in the root of the project
 # Add your Clarifai Personal Access Token and fill with your database credentials 
 # Example:
+PORT=your_port
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_USER=postgres
